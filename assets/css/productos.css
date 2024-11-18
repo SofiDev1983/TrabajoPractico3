@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap");
+
 .categorias h1 {
   font-family: "Merriweather";
   font-weight: 800;
@@ -10,6 +11,7 @@
 
 .productos {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 0 1rem;
@@ -17,7 +19,8 @@
 
 .item-producto {
   flex: 0 0 20rem;
-  height: 30rem;
+  width: 15rem;
+  height: 25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,6 +28,9 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  background-color: antiquewhite;
+  border-radius: 26px;
+  justify-content: center;
 }
 
 .item-producto img {
@@ -34,14 +40,19 @@
   object-fit: contain;
   margin: 0 auto;
 }
+
 .producto_nombre {
   padding: 0 0.5rem;
+  text-wrap: wrap;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 .producto_precio {
   margin: 1.5rem 0;
   padding: 0 0.5rem;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: rgb(65, 65, 65);
 }
@@ -51,4 +62,11 @@
   border-radius: 1rem;
   background-color: black;
   color: white;
+}
+
+.categoria-productos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
 }

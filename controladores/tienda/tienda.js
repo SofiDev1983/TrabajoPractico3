@@ -1,31 +1,41 @@
+// Escribir el HTML en el archivo tienda.html
 import { categoriasServices } from "../../../servicios/categorias-servicios.js";
 import { productosServices } from "../../../servicios/productos-servicios.js";
+import { RouterTienda } from "./routerTienda.js";
+// Copiar el contenido del main
 
-function htmlCategoria(id, categoria) {
-  /*ESTA FUNCION RECIBE DOS PARAMETROS ID Y CATEGORIA*/
-  /*EN ESTA SE GENERA UNA CADENA DE CARACTERES CON EL CODIGO HTML CORRESPONDIENTE A LA CATEGORIA (ESTA EN ASSETS/MODULOS/listarProducto.html)*/
-  /*SE DEBERÁ CONCATENAR PARA INCORPORAR EL id DE LA CATEGORIA AL ATRIBUTO data-idCategoria  */
-  /*Y ADEMAS REEMPLAZAR EL TEXTO Nombre de Categoría POR EL VALOR QUE LLEGA AL PARAMETRO CATEGORIA DE LA FUNCION*/
-  /*POR ULTIMO, LA FUNCION DEVOLVERA LA CADENA RESULTANTE*/
+const htmlTienda = `<div>
+        <section class="seccionLogin">
+            
+        </section>
+        
+        <section class="carrusel">
+
+        </section>
+
+        <section class="seccionProductos">
+
+        </section>
+        
+        <section class="vistaProducto">
+
+        </section>
+    </div>`;
+
+export async function Tienda() {
+  let d = document;
+  d.querySelector(".contenidoTitulo").innerHTML = "Tienda";
+  d.querySelector(".contenidoTituloSec").innerHTML = "";
+  d.querySelector(".rutaMenu").innerHTML = "Tienda";
+  d.querySelector(".rutaMenu").setAttribute("href", "#/tienda");
+  let cP = d.getElementById("contenidoPrincipal");
+  cP.innerHTML = htmlTienda;
+
+  const localPath = window.location.href;
+  console.log(localPath);
+  RouterTienda()
 }
 
-function htmlItemProducto(id, imagen, nombre, precio) {
-  return `<div class="item-producto">
-  <img src="${imagen}" style='height: 128px'>
-  <p class="producto_nombre">${nombre}</p>
-  <p class="producto_precio">${formatPrice(precio)}</p>
-
-  <a href="#/tienda?idProducto=${id}" type="button" class="producto_enlace" >Ver producto</a>
-
-</div>`;
-}
-async function asignarProducto(id) {
-  /*1- ESTA FUNCION DEBERA CONSULTAR EN EL API-REST TODOS LOS PRODUCTOS PERTENECIENTES A LA CATEGORIA CON CODIGO ID  */
-  /*2- HACER UN BUCLE CON EL RESULTADO DE LA CONSULTA Y RECORRELO PRODUCTO POR PRODUCTO*/
-  /*3- EN EL INTERIOR DEL BUCLE DEBERA LLAMAR A LA FUNCION htmlItemProducto y acumular su resultado en una cadena de caracteres */
-  /*4- LUEGO DEL BUCLE Y CON LA CADENA RESULTANTE SE DEBE CAPTURAR EL ELEMENTO DEL DOM PARA ASIGNAR ESTOS PRODUCTOS DENTRO DE LA CATEGORIA CORRESPONDIENTE */
-  /*5- PARA ELLO PODEMOS HACER USO DE UN SELECTOR CSS QUE SELECCIONE EL ATRIBUTO data-idCategoria=X, Ó LA CLASE .productos  .SIENDO X EL VALOR LA CATEGORIA EN CUESTION.*/
-}
 export async function listarProductos() {
   const productos = await productosServices.listar();
   const categorias = await categoriasServices.listar();
@@ -71,6 +81,17 @@ export async function listarProductos() {
   });
 }
 
+function htmlItemProducto(id, imagen, nombre, precio) {
+  return `<div class="item-producto">
+  <img src="${imagen}" style='height: 128px'>
+  <p class="producto_nombre">${nombre}</p>
+  <p class="producto_precio">${formatPrice(precio)}</p>
+
+  <a href="#/tienda?idProducto=${id}" type="button" class="producto_enlace" >Ver producto</a>
+
+</div>`;
+}
+
 function formatPrice(price) {
   const precioNumerico = parseFloat(price); // Convertir a número
   if (isNaN(precioNumerico)) {
@@ -83,4 +104,24 @@ function formatPrice(price) {
     currency: "ARS",
     minimumFractionDigits: 2,
   }).format(precioNumerico);
+}
+
+function verProducto(id, nombre, descripcion, precio, imagen) {
+  const verProductoHtml = `<div class="imagen">
+    <img src="${imagen}" alt="producto">
+</div>
+<div class="texto">
+    <p id="nameProducto" data-idProducto=${id}>${nombre}</p>
+
+    <p id="descripcionProducto">${descripcion}</p>
+
+    <p id="precioProducto">${formatPrice(precio)}</p>
+
+    <div class="form-group">
+        <label for="cantidadProducto">Cantidad</label>
+        <input type="number" step="1" min ="1" value="1" id="cantidadProducto">
+    </div>
+
+    <a id="btnComprar" >Comprar</a>
+</div>`;
 }
