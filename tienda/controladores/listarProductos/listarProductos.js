@@ -13,9 +13,9 @@ function htmlItemProducto(id, imagen, nombre, precio) {
   return `<div class="item-producto">
   <img src="${imagen}" style='height: 128px'>
   <p class="producto_nombre">${nombre}</p>
-  <p class="producto_precio">${formatPrice(precio)}</p>
+  <p class="producto_precio">${precio}</p>
 
-  <a href="#/tienda?idProducto=${id}" type="button" class="producto_enlace" >Ver producto</a>
+  <a href="#/vistaProducto?idProducto=${id}" type="button" class="producto_enlace" >Ver producto</a>
 
 </div>`;
 }
@@ -61,7 +61,7 @@ export async function listarProductos() {
         producto.id,
         producto.foto,
         producto.nombre,
-        producto.precio
+        producto.formatearPrecio()
       );
       seccionProductosPorCategoria.appendChild(itemProducto);
     });
@@ -69,18 +69,4 @@ export async function listarProductos() {
     seccionCategoria.appendChild(seccionProductosPorCategoria);
     seccionProductos.appendChild(seccionCategoria);
   });
-}
-
-function formatPrice(price) {
-  const precioNumerico = parseFloat(price); // Convertir a número
-  if (isNaN(precioNumerico)) {
-    return "Valor no válido"; // Manejar caso de error
-  }
-
-  // Formatear como moneda argentina
-  return new Intl.NumberFormat("es-AR", {
-    style: "currency",
-    currency: "ARS",
-    minimumFractionDigits: 2,
-  }).format(precioNumerico);
 }

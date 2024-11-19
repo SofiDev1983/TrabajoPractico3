@@ -198,6 +198,7 @@ export function setUsuarioAutenticado(booleano, idUsuario) {
   sessionStorage.setItem("autenticado", booleano);
   sessionStorage.setItem("id-usuario", idUsuario);
   sessionStorage.setItem("correo-usuario", inputEmail?.value);
+  console.log("Correo Usuario:", inputEmail?.value);
 }
 export function getUsuarioAutenticado() {
   /**
@@ -208,6 +209,7 @@ export function getUsuarioAutenticado() {
   const autenticado = sessionStorage.getItem("autenticado");
   const idUsuario = sessionStorage.getItem("id-usuario");
   const correoUsuario = sessionStorage.getItem("correo-usuario");
+
   return {
     autenticado,
     idUsuario,

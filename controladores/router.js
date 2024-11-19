@@ -4,6 +4,7 @@ import { Productos } from "./productos/productos.js";
 import { Usuarios } from "./usuarios/usuarios.js";
 import { Ventas } from "./ventas/ventas.js";
 import { Tienda } from "./tienda/tienda.js";
+import { vistaProducto } from "../tienda/controladores/listarProductos/vistaProducto.js";
 
 export function Router() {
   let hash = location.hash;
@@ -28,6 +29,8 @@ export function Router() {
     Ventas();
   } else if (hash === "#/tienda") {
     Tienda();
+  } else if (hash.startsWith("#/vistaProducto")) {
+    vistaProducto();
   }
   console.log(hash);
 }
