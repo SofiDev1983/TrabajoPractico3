@@ -32,8 +32,6 @@ export function Router() {
     Tienda();
   } else if (hash.startsWith("#/vistaProducto")) {
     vistaProducto();
-  } else if (hash === "#/sign-up") {
-    newRegister();
   }
   console.log(hash);
 }
