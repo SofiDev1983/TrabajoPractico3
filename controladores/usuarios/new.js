@@ -1,6 +1,5 @@
 import { usuariosServices } from "/servicios/usuarios-servicios.js";
 
-
 const htmlAmUsuarios = `
 <div class="card card-dark card-outline">
 
@@ -262,109 +261,119 @@ const htmlAmUsuarios = `
 
 
 </div> `;
-var formulario='';
-var txtNombre='';
-var txtApellido='';
-var txtCorreo='';
-var txtPass='';
-var fileAvatar='';
-var selPais='';
-var txtCiudad='';
-var txtDireccion='';
-var txtTelefono='';
+var formulario = "";
+var txtNombre = "";
+var txtApellido = "";
+var txtCorreo = "";
+var txtPass = "";
+var fileAvatar = "";
+var selPais = "";
+var txtCiudad = "";
+var txtDireccion = "";
+var txtTelefono = "";
 var idUsuario;
 
-export async function newRegister(){
-    let d = document;
-    
-    d.querySelector('.contenidoTitulo').innerHTML = 'Agregar Usuario';
-	d.querySelector('.contenidoTituloSec').innerHTML += 'Agregar';
-   
-    crearFormulario();
+export async function newRegister() {
+  let d = document;
 
-    formulario = d.querySelector(".frmAmUsuario")
-    formulario.addEventListener("submit", guardar);
+  d.querySelector(".contenidoTitulo").innerHTML = "Agregar Usuario";
+  d.querySelector(".contenidoTituloSec").innerHTML += "Agregar";
+
+  crearFormulario();
+
+  formulario = d.querySelector(".frmAmUsuario");
+  formulario.addEventListener("submit", guardar);
 }
 
-export async function editRegister(id){
-    let d = document;
-    idUsuario = id;
-    d.querySelector('.contenidoTitulo').innerHTML = 'Editar Usuario';
-    d.querySelector('.contenidoTituloSec').innerHTML += 'Editar';
-    crearFormulario();
+export async function editRegister(id) {
+  let d = document;
+  idUsuario = id;
+  d.querySelector(".contenidoTitulo").innerHTML = "Editar Usuario";
+  d.querySelector(".contenidoTituloSec").innerHTML += "Editar";
+  crearFormulario();
 
-    formulario = d.querySelector(".frmAmUsuario")
-    formulario.addEventListener("submit", modificar);
-    let usuario =  await usuariosServices.listar(id);
+  formulario = d.querySelector(".frmAmUsuario");
+  formulario.addEventListener("submit", modificar);
+  let usuario = await usuariosServices.listar(id);
 
-    
-    txtNombre.value= usuario.nombre;
-    txtApellido.value= usuario.apellido;
-    txtCorreo.value= usuario.correo;
-    txtPass.value= usuario.password;
-    if (usuario.avatar.length > 0 )
-        fileAvatar.src= usuario.avatar;
-    selPais.value= usuario.pais;
-    txtCiudad.value= usuario.ciudad;
-    txtDireccion.value= usuario.direccion;
-    txtTelefono.value= usuario.telefono;
+  txtNombre.value = usuario.nombre;
+  txtApellido.value = usuario.apellido;
+  txtCorreo.value = usuario.correo;
+  txtPass.value = usuario.password;
+  if (usuario.avatar.length > 0) fileAvatar.src = usuario.avatar;
+  selPais.value = usuario.pais;
+  txtCiudad.value = usuario.ciudad;
+  txtDireccion.value = usuario.direccion;
+  txtTelefono.value = usuario.telefono;
 }
 
-function crearFormulario(){
-    let d = document;
-    d.querySelector('.rutaMenu').innerHTML = "Usuarios";
-    d.querySelector('.rutaMenu').setAttribute('href',"#/usuarios");
+function crearFormulario() {
+  let d = document;
+  d.querySelector(".rutaMenu").innerHTML = "Usuarios";
+  d.querySelector(".rutaMenu").setAttribute("href", "#/usuarios");
 
-    let cP =d.getElementById('contenidoPrincipal');
-    cP.innerHTML =  htmlAmUsuarios;
-    
-    var script = document.createElement( "script" );
-    script.type = "text/javascript";
-    script.src = '../controladores/validaciones.js';
-    cP.appendChild(script);
-    
-    txtNombre= d.getElementById('usuarioNombre');
-    txtApellido= d.getElementById('usuarioApellido');
-    txtCorreo= d.getElementById('usuarioEmail');
-    txtPass= d.getElementById('usuarioPassword');
-    fileAvatar= d.querySelector('.changePicture');
-    selPais= d.getElementById('usuarioPais');
-    txtCiudad= d.getElementById('usuarioCiudad');
-    txtDireccion= d.getElementById('usuarioDireccion');
-    txtTelefono= d.getElementById('usuarioTelefono');
+  let cP = d.getElementById("contenidoPrincipal");
+  cP.innerHTML = htmlAmUsuarios;
 
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src = "../controladores/validaciones.js";
+  cP.appendChild(script);
+
+  txtNombre = d.getElementById("usuarioNombre");
+  txtApellido = d.getElementById("usuarioApellido");
+  txtCorreo = d.getElementById("usuarioEmail");
+  txtPass = d.getElementById("usuarioPassword");
+  fileAvatar = d.querySelector(".changePicture");
+  selPais = d.getElementById("usuarioPais");
+  txtCiudad = d.getElementById("usuarioCiudad");
+  txtDireccion = d.getElementById("usuarioDireccion");
+  txtTelefono = d.getElementById("usuarioTelefono");
 }
 
 function guardar(e) {
-   
-    e.preventDefault();
-   
-    var pais = selPais.options[selPais.selectedIndex];
-    usuariosServices.crear(txtApellido.value, txtNombre.value, txtCorreo.value, txtPass.value, fileAvatar.src , 
-        pais.value, txtCiudad.value, txtDireccion.value, txtTelefono.value)
-        .then(respuesta => {
+  e.preventDefault();
 
-            formulario.reset();
-            window.location.href = "#/usuarios";
-
-        })
-        .catch(error => console.log(error))        
-
-}    
+  var pais = selPais.options[selPais.selectedIndex];
+  usuariosServices
+    .crear(
+      txtApellido.value,
+      txtNombre.value,
+      txtCorreo.value,
+      txtPass.value,
+      fileAvatar.src,
+      pais.value,
+      txtCiudad.value,
+      txtDireccion.value,
+      txtTelefono.value
+    )
+    .then((respuesta) => {
+      formulario.reset();
+      window.location.href = "#/usuarios";
+    })
+    .catch((error) => console.log(error));
+}
 
 function modificar(e) {
-   
-    e.preventDefault();
-   
-    var pais = selPais.options[selPais.selectedIndex];
-    usuariosServices.editar(idUsuario, txtApellido.value, txtNombre.value, txtCorreo.value, txtPass.value, fileAvatar.src , 
-        pais.value, txtCiudad.value, txtDireccion.value, txtTelefono.value)
-        .then(respuesta => {
+  e.preventDefault();
 
-            formulario.reset();
-            window.location.href = "#/usuarios";
-
-        })
-        .catch(error => console.log(error))        
-
-}   
+  var pais = selPais.options[selPais.selectedIndex];
+  usuariosServices
+    .editar(
+      idUsuario,
+      txtApellido.value,
+      txtNombre.value,
+      txtCorreo.value,
+      txtPass.value,
+      fileAvatar.src,
+      pais.value,
+      txtCiudad.value,
+      txtDireccion.value,
+      txtTelefono.value
+    )
+    .then((respuesta) => {
+      formulario.reset();
+      window.location.href = "#/usuarios";
+    })
+    .catch((error) => console.log(error));
+}

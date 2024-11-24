@@ -1,7 +1,6 @@
 import Producto from "../models/Producto.js";
 
-const url =
-  "https://65480baf902874dff3acf283.mockapi.io/api/TpiLab3bis/productos";
+const url = "https://673b854b339a4ce4451c7f4d.mockapi.io/api/productos";
 
 /**
  * Consulta todos los productos

@@ -5,6 +5,7 @@ import { Usuarios } from "./usuarios/usuarios.js";
 import { Ventas } from "./ventas/ventas.js";
 import { Tienda } from "./tienda/tienda.js";
 import { vistaProducto } from "../tienda/controladores/listarProductos/vistaProducto.js";
+import { newRegister } from "./usuarios/new.js";
 
 export function Router() {
   let hash = location.hash;
@@ -31,6 +32,8 @@ export function Router() {
     Tienda();
   } else if (hash.startsWith("#/vistaProducto")) {
     vistaProducto();
+  } else if (hash === "#/sign-up") {
+    newRegister();
   }
   console.log(hash);
 }

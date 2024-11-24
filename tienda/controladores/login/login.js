@@ -21,7 +21,7 @@ const htmlLogin = `<div class="contenedorLogin">
                 </div>
             </div>
         </form>
-        <p>No tienes cuenta?<a href="#/newUsuario"> Crear una</a></p>
+        <p>No tienes cuenta?<a href="#/usuarios"> Crear una</a></p>
     </div>
 </div>
 `;

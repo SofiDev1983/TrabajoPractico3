@@ -1,4 +1,4 @@
-const url = "https://65418746f0b8287df1fe755a.mockapi.io/api/TpiLab3/usuarios";
+const url = "https://67439913b7464b1c2a655130.mockapi.io/api/usuarios";
 
 //API-REST USUARIOS//
 
@@ -12,7 +12,6 @@ async function listar(id) {
       console.error(error);
       return [];
     });
-  console.log(response);
   return response;
 }
 
