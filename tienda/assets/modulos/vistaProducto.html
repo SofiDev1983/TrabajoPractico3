@@ -1,17 +1,20 @@
-<div class="imagen">
-    <img src="${imagen}" alt="producto">
-</div>
-<div class="texto">
-    <p id="nameProducto" data-idProducto=${id}>${nombre}</p>
 
-    <p id="descripcionProducto">${descripcion}</p>
-
-    <p id="precioProducto">${precio}</p>
-
-    <div class="form-group">
-        <label for="cantidadProducto">Cantidad</label>
-        <input type="number" step="1" min ="1" value="1" id="cantidadProducto">
+  <!-- Vista Producto -->
+  <div class="vistaProducto">
+    <div class="imagen">
+      <img src="${imagen}" alt="producto">
     </div>
-
-    <a id="btnComprar" >Comprar</a>
-</div>
+    <div class="texto">
+      <p id="nameProducto" data-idProducto="${id}">${nombre}</p>
+      <p id="descripcionProducto">${descripcion}</p>
+      <p id="precioProducto">${precio}</p>
+      
+      <div class="form-group">
+        <label for="cantidadProducto">Cantidad</label>
+        <input type="number" step="1" min="1" value="1" id="cantidadProducto">
+      </div>
+  
+      <a id="btnComprar" href="#">Comprar</a>
+    </div>
+  </div>
+  

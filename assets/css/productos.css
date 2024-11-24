@@ -1,22 +1,30 @@
+/* Fuentes de Google */
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap");
 
+/* Estilo de la categoría */
 .categorias h1 {
-  font-family: "Merriweather";
+  font-family: "Merriweather", serif;
   font-weight: 800;
   font-size: 3rem;
   padding: 2rem;
   margin: 1rem 0;
+  color: black; /* Color negro */
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Estilos generales de los productos */
 .productos {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 0 1rem;
+  gap: 1.5rem;
 }
 
+/* Estilo para cada producto */
 .item-producto {
   flex: 0 0 20rem;
   width: 15rem;
@@ -25,48 +33,99 @@
   flex-direction: column;
   align-items: center;
   margin: 1rem;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  background-color: antiquewhite;
+  text-align: center;
+  background-color: white; /* Fondo blanco */
   border-radius: 26px;
-  justify-content: center;
+  justify-content: space-between;
+  color: black; /* Texto negro */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.item-producto:hover {
+  transform: translateY(-10px); /* Elevación al hacer hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagen del producto */
 .item-producto img {
   display: block;
   height: 60%;
   width: 60%;
   object-fit: contain;
   margin: 0 auto;
+  transition: transform 0.3s ease;
 }
 
+.item-producto:hover img {
+  transform: scale(1.1); /* Amplía la imagen al hacer hover */
+}
+
+/* Nombre del producto */
 .producto_nombre {
   padding: 0 0.5rem;
-  text-wrap: wrap;
-  text-align: center;
-  font-weight: bold;
-  margin-top: 10px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: inherit; /* Hereda el color del texto */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
+/* Precio del producto */
 .producto_precio {
   margin: 1.5rem 0;
   padding: 0 0.5rem;
   font-size: 1.5rem;
   font-weight: bold;
-  color: rgb(65, 65, 65);
+  color: inherit; /* Hereda el color del texto */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+/* Enlace del producto */
 .producto_enlace {
   padding: 1rem 0.5rem;
   border-radius: 1rem;
-  background-color: black;
+  background-color: black; /* Fondo negro */
   color: white;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+.producto_enlace:hover {
+  background-color: #FFCC00; /* Amarillo */
+  color: black; /* Texto negro */
+  transform: scale(1.05);
+}
+
+/* Estilo de la categoría de productos */
 .categoria-productos {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f8f8f8; /* Fondo neutro claro */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.categoria-productos h2 {
+  font-family: 'Merriweather', serif;
+  font-weight: 700;
+  color: black; /* Color negro */
+  font-size: 2rem;
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Efecto hover en el contenedor de la categoría */
+.categoria-productos:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  background-color: #FFCC00; /* Amarillo */
 }
