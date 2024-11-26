@@ -57,6 +57,9 @@ async function usuarioExiste() {
     mostrarMensaje("Email o contraseña incorrecto, intenta nuevamente");
   } else {
     //ocultar login
+    if (!frmLogin) {
+      return;
+    }
     frmLogin.outerHTML = "";
     document.getElementById("sitio").classList.remove("d-none");
 
@@ -68,7 +71,7 @@ async function usuarioExiste() {
     console.log(inputEmail?.value);
 
     setUsuarioAutenticado(true);
-    window.location.href = "#/home";
+    window.location.href = "#/tienda";
   }
 }
 

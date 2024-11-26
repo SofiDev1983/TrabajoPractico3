@@ -1,55 +1,62 @@
-<div class="contenedorLogin">
-  <div class="cajaLogin">
-    <p>Iniciar sesión</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MarketPlace</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/login.css" />
+  </head>
+  <body>
+    <div class="contenedorLogin">
+      <div class="cajaLogin">
+        <p>Iniciar sesión</p>
 
-    <form class="formLogin">
-      <div class="input-group">
-        <input
-          type="email"
-          class="form-control"
-          id="loginEmail"
-          placeholder="Email"
-          name="loginEmail"
-          autocomplete
-          required
-        />
+        <form class="formLogin">
+          <div class="input-group">
+            <input
+              type="email"
+              class="form-control"
+              id="loginEmail"
+              placeholder="Email"
+              name="loginEmail"
+              autocomplete
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <input
+              type="password"
+              class="form-control"
+              id="loginPassword"
+              placeholder="Password"
+              name="loginPassword"
+              autocomplete
+              required
+            />
+          </div>
+
+          <!-- <div class="input-group">
+            <input
+              type="password"
+              class="form-control"
+              id="reLoginPassword"
+              placeholder="Repetir Password"
+              name="reLoginPassword"
+              required
+            />
+          </div> -->
+
+          <div class="row">
+            <div class="col-4">
+              <button type="submit" id="iniciar-sesion" class="btnAmarillo">
+                Login
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
-
-      <div class="input-group">
-        <input
-          type="password"
-          class="form-control"
-          id="loginPassword"
-          placeholder="Password"
-          name="loginPassword"
-          autocomplete
-          required
-        />
-      </div>
-
-      <div class="input-group">
-        <input
-          type="password"
-          class="form-control"
-          id="reLoginPassword"
-          placeholder="Repetir Password"
-          name="reLoginPassword"
-          required
-        />
-      </div>
-
-      <div class="row">
-        <div class="col-4">
-          <button type="submit" id="iniciar-sesion" class="btnAmarillo">
-            Login
-          </button>
-        </div>
-      </div>
-    </form>
-
-    <p>
-      No tienes cuenta?
-      <a href="#/newUsuario"> Crear una</a>
-    </p>
-  </div>
-</div>
+    </div>
+  </body>
+</html>

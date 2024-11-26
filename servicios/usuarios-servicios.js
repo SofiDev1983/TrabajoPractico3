@@ -12,7 +12,6 @@ async function listar(id) {
       console.error(error);
       return [];
     });
-  console.log(response);
   return response;
 }
 

@@ -1,8 +1,7 @@
 import { usuariosServices } from "../../servicios/usuarios-servicios.js";
 import { ventasServices } from "../../servicios/ventas-servicios.js";
 import { productosServices } from "../../servicios/productos-servicios.js";
-const htmlHome = 
-` <div class="row" >
+const htmlHome = ` <div class="row" >
     <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box bg-info">
@@ -63,39 +62,37 @@ const htmlHome =
         </div>
     </div>
     <!-- ./col -->
-</div>`
+</div>`;
 
-export async function Home(){
-    let d = document
-    let res='';
-    d.querySelector('.contenidoTitulo').innerHTML = 'Home';
-    d.querySelector('.contenidoTituloSec').innerHTML = '';
-    d.querySelector('.rutaMenu').innerHTML = "Home";
-    d.querySelector('.rutaMenu').setAttribute('href',"#/home");
-    let cP =d.getElementById('contenidoPrincipal');
-           
-     
-    cP.innerHTML =  htmlHome;
-     
-    let indVentas = d.getElementById ("indVentas");
-    let indSinDespachar = d.getElementById ("indSindespachar");
-    let indUsuarios = d.getElementById ("indUsuarios");
-    let indProductos = d.getElementById ("indProductos");
+export async function Home() {
+  let d = document;
+  let res = "";
+  d.querySelector(".contenidoTitulo").innerHTML = "Home";
+  d.querySelector(".contenidoTituloSec").innerHTML = "";
+  d.querySelector(".rutaMenu").innerHTML = "Home";
+  d.querySelector(".rutaMenu").setAttribute("href", "#/home");
+  let cP = d.getElementById("contenidoPrincipal");
 
-    res = await usuariosServices.listar();
-    //CANTIDAD DE USUARIOS
-    indUsuarios.innerHTML = res.length;
-    
-    //CANTIDAD DE VENTAS
-    res= await ventasServices.listar();
-    indVentas.innerHTML = res.length;
+  cP.innerHTML = htmlHome;
 
-    //CANTIDAD DE VENTAS SIN DESPACHAR (los valores que espera para el campo despachado son true y false)
-    res= await ventasServices.listarVentasDespachadas(false) ;
-    indSinDespachar.innerHTML = res.length;
+  let indVentas = d.getElementById("indVentas");
+  let indSinDespachar = d.getElementById("indSindespachar");
+  let indUsuarios = d.getElementById("indUsuarios");
+  let indProductos = d.getElementById("indProductos");
 
-    //CANTIDAD DE PRODUCTOS
-    res= await productosServices.listar() ;
-    indProductos.innerHTML = res.length;
+  res = await usuariosServices.listar();
+  //CANTIDAD DE USUARIOS
+  indUsuarios.innerHTML = res.length;
 
+  //CANTIDAD DE VENTAS
+  res = await ventasServices.listar();
+  indVentas.innerHTML = res.length;
+
+  //CANTIDAD DE VENTAS SIN DESPACHAR (los valores que espera para el campo despachado son true y false)
+  res = await ventasServices.listarVentasDespachadas(false);
+  indSinDespachar.innerHTML = res.length;
+
+  //CANTIDAD DE PRODUCTOS
+  res = await productosServices.listar();
+  indProductos.innerHTML = res.length;
 }

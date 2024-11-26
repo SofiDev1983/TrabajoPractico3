@@ -8,8 +8,10 @@ import {
   register,
   setUsuarioAutenticado,
 } from "./login/login.js";
+import { Router } from "/controladores/router.js";
 
 export function RouterTienda() {
+  document.getElementById("sitio").classList.add("d-none");
   let session = getUsuarioAutenticado();
   setSession(session);
   let hash = location.hash;
@@ -22,10 +24,14 @@ export function RouterTienda() {
     register();
   } else if (hash === "#logout") {
     setUsuarioAutenticado(false, -1);
-    location.replace("tienda.html");
+    location.href = "";
+  } else if (hash.startsWith("#/vistaProducto")) {
+    vistaProducto();
   } else if (hash === "") {
-    Carrusel();
     listarProductos();
+    Carrusel();
+  } else {
+    Router();
   }
   console.log(hash);
 }
@@ -35,7 +41,8 @@ function setSession(session) {
    * Esta función se utiliza para recuperar los datos de sessión cada vez que se recarga la página.
    */
   let d = document;
+
   if (session.autenticado) {
-    mostrarUsuario(session.email);
+    mostrarUsuario();
   }
 }

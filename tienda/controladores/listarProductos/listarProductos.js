@@ -27,6 +27,16 @@ async function asignarProducto(id) {
   /*5- PARA ELLO PODEMOS HACER USO DE UN SELECTOR CSS QUE SELECCIONE EL ATRIBUTO data-idCategoria=X, Ó LA CLASE .productos  .SIENDO X EL VALOR LA CATEGORIA EN CUESTION.*/
 }
 export async function listarProductos() {
+  const carrusel = document.querySelector(".carrusel");
+  const seccionVistaProducto = document.querySelector(".vistaProducto");
+  const seccionLogin = document.querySelector(".seccionLogin");
+  if (carrusel) carrusel.innerHTML = "";
+  if (seccionVistaProducto) {
+    seccionVistaProducto.innerHTML = "";
+    seccionVistaProducto.style.display = "none";
+  }
+  if (seccionLogin) seccionLogin.innerHTML = "";
+
   const productos = await productosServices.listar();
   const categorias = await categoriasServices.listar();
 
@@ -44,6 +54,7 @@ export async function listarProductos() {
 
   const seccionProductos =
     document.getElementsByClassName("seccionProductos")[0];
+
   Object.values(productosPorCategoria).forEach((categoria) => {
     const seccionCategoria = document.createElement("section");
     seccionCategoria.className = "categorias";

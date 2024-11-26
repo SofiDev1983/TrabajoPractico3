@@ -1,10 +1,10 @@
+import { RouterTienda } from "../tienda/controladores/routerTienda.js";
+import { Tienda } from "../tienda/controladores/tienda.js";
 import { Categorias } from "./categorias/categorias.js";
 import { Home } from "./home/home.js";
 import { Productos } from "./productos/productos.js";
 import { Usuarios } from "./usuarios/usuarios.js";
 import { Ventas } from "./ventas/ventas.js";
-import { Tienda } from "./tienda/tienda.js";
-import { vistaProducto } from "../tienda/controladores/listarProductos/vistaProducto.js";
 
 export function Router() {
   let hash = location.hash;
@@ -27,10 +27,6 @@ export function Router() {
     Productos();
   } else if (hash === "#/ventas") {
     Ventas();
-  } else if (hash === "#/tienda") {
-    Tienda();
-  } else if (hash.startsWith("#/vistaProducto")) {
-    vistaProducto();
   }
   console.log(hash);
 }
