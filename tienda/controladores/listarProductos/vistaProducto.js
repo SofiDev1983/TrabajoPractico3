@@ -26,6 +26,7 @@ export async function vistaProducto() {
   if (seccionLogin) seccionLogin.innerHTML = "";
 
   const vistaProductoElement = document.querySelector(".vistaProducto");
+  vistaProductoElement.style.display = "flex";
   const idProducto = leerParametro();
 
   if (!idProducto) {
@@ -119,8 +120,8 @@ async function registrarCompra() {
    *
    */
   const auth = getUsuarioAutenticado();
-  if (!auth) {
-    setUsuarioAutenticado(false);
+  if (!auth || !auth.autenticado) {
+    alert("Inicie sesion para comprar");
     return;
   }
   const usuario = getDataUsuario();
@@ -174,13 +175,14 @@ async function registrarCompra() {
   } catch (error) {
     alert("No se pudo realizar la compra. Intentelo de nuevo mas tarde.");
   } finally {
-    location.replace("#/tienda");
+    alert("Compra realizada exitosamente!");
+    history.go(-1);
   }
 }
 
 function getDataUsuario() {
-  const correo = sessionStorage.getItem("usuarioCorreo");
-  const idUsuario = sessionStorage.getItem("usuarioId");
+  const correo = sessionStorage.getItem("correo-usuario");
+  const idUsuario = sessionStorage.getItem("id-usuario");
   return {
     correo,
     idUsuario,

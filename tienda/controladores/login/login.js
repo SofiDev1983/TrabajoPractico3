@@ -1,3 +1,4 @@
+import { App } from "../../../App/App.js";
 /**ESTE MODULO SE ENCARGA DE RENDERIZAR LA PANTALLA DE LOGIN Y DE REGISTRO SEGUN CORRESPONDA */
 import { usuariosServices } from "../../../servicios/usuarios-servicios.js";
 
@@ -5,15 +6,12 @@ import { usuariosServices } from "../../../servicios/usuarios-servicios.js";
 const htmlLogin = `<div class="contenedorLogin">
     <div class="cajaLogin">
         <p >Iniciar sesión</p>
-        <form  class="formLogin" >
+        <form class="formLogin">
             <div class="input-group">
                 <input type="email" class="form-control" id="loginEmail" placeholder="Email" name="loginEmail" autocomplete required>
             </div>
             <div class="input-group">
                 <input type="password" class="form-control" id="loginPassword" placeholder="Password" name="loginPassword" autocomplete required>
-            </div>
-            <div class="input-group">
-                <input type="password" class="form-control" id="reLoginPassword" placeholder="Repetir Password" name="reLoginPassword"  required>
             </div>
             <div class="row">
                 <div class="col-4">
@@ -21,10 +19,31 @@ const htmlLogin = `<div class="contenedorLogin">
                 </div>
             </div>
         </form>
-        <p>No tienes cuenta?<a href="#/usuarios"> Crear una</a></p>
     </div>
-</div>
-`;
+</div>`;
+
+const htmlRegister = `<div class="contenedorLogin">
+    <div class="cajaLogin">
+        <p >Iniciar sesión</p>
+        <form class="formLogin">
+            <div class="input-group">
+                <input type="email" class="form-control" id="loginEmail" placeholder="Email" name="loginEmail" autocomplete required>
+            </div>
+            <div class="input-group">
+                <input type="password" class="form-control" id="loginPassword" placeholder="Password" name="loginPassword" autocomplete required>
+            </div>
+            <div class="input-group">
+                <input type="password" class="form-control" id="reLoginPassword" placeholder="Repetir Password" name="reLoginPassword">
+            </div>
+            <div class="row">
+                <div class="col-4">
+                <button type="submit"  id="iniciar-sesion" class="btnAmarillo">Login</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>`;
+
 /*2-Se deben definir 4 variables globales al módulo, una para el formulario html, y otras tres para los inputs de email, contraseña y
  *   repetir contraseña
  */
@@ -40,7 +59,7 @@ export async function login() {
   crearFormulario(false);
 }
 
-export async function register() {
+export function register() {
   /** 4- Esta función se encarga de llamar a la función crearFormulario y de enlazar el evento submit del formulario de registro.
    *     Esta función es similar a la de login, pero en el llamado a la función crearFormulario lo hace pasando el valor true al
    *     al parámetro registro que espera función mencionada.
@@ -63,7 +82,7 @@ function crearFormulario(registrar) {
    *    el input reLoginPassword se mostrará en pantalla.
    * 7- Por último se deberá capturar el formulario indentificado con la clase .formLogin y asignarlo a la variable global formulario.
    */
-
+  console.log(document.children);
   const carrusel = document.querySelector(".carrusel");
   if (carrusel) carrusel.innerHTML = "";
 
@@ -74,22 +93,20 @@ function crearFormulario(registrar) {
   if (vistaProducto) vistaProducto.innerHTML = "";
 
   const seccionLogin = document.querySelector(".seccionLogin");
-  if (seccionLogin) seccionLogin.innerHTML = htmlLogin;
+  console.log("LOGIN", seccionLogin);
+
+  if (seccionLogin) {
+    if (registrar) seccionLogin.innerHTML = htmlRegister;
+    else seccionLogin.innerHTML = htmlLogin;
+  }
 
   inputEmail = document.getElementById("loginEmail");
   inputPassword = document.getElementById("loginPassword");
   inputRepetirPass = document.getElementById("reLoginPassword");
+  formulario = document.getElementsByClassName("formLogin")[0];
 
-  if (!registrar && inputRepetirPass) {
-    inputRepetirPass.value = "";
-    inputRepetirPass.style.display = "none";
-  }
+  console.log(formulario);
 
-  if (registrar && inputRepetirPass) {
-    inputRepetirPass.style.display = "block";
-  }
-
-  formulario = document.getElementsByClassName("formLogin");
   if (!formulario) return;
 
   formulario.addEventListener("submit", async (event) => {
@@ -114,6 +131,8 @@ async function ingresar(e) {
    *     b- Llamar a la función mostrarUsuario, pasandole como parámetro el texto del email de la cuenta.
    * 5- En el caso de que el usuario no sea válido se deberá mostrar una alerta con el texto 'Email o contraseña incorrecto, intenta nuevamente'.
    */
+  console.log("Hola");
+
   e.preventDefault();
   const email = inputEmail?.value;
   const password = inputPassword?.value;
@@ -129,6 +148,7 @@ async function ingresar(e) {
   }
 
   setUsuarioAutenticado(email, existeUsuario);
+  location.replace("#");
 }
 
 async function registrarUsuario(e) {
@@ -163,23 +183,36 @@ async function usuarioExiste() {
    * 3- Si el email y la contraseña no son válido devuelve falso.
    */
   let usuarios = await usuariosServices.listar();
-  usuarios = usuarios.some(
+  let exists = usuarios.some(
     (usuario) =>
       usuario.correo === inputEmail?.value &&
       usuario.password === inputPassword?.value
   );
+  if (!exists) return false;
   const usuario = usuarios.find(
     (u) => u.correo === inputEmail?.value && u.password === inputPassword?.value
   );
   return !usuario ? false : usuario.id;
 }
 
-export function mostrarUsuario(email) {
+export function mostrarUsuario() {
   /**
    * 1- Esta función deberá capturar del dom la clase .btnLogin y asignarle el texto existente en el parámetro email.
    * 2- Deberá capturar del dom la clase .btnRegister y asignarle el texto "Logout" y a este elemento asignarle el valor
    *    "#logout" sobre el atributo href.
    **/
+  const email = sessionStorage.getItem("correo-usuario");
+  const btnLogin = document.getElementsByClassName("btnLogin")[0];
+  const btnRegistrar = document.getElementsByClassName("btnRegister")[0];
+  if (!email || email === "null") {
+    btnLogin.textContent = "Log In";
+    btnRegistrar.textContent = "Registrarse";
+    btnRegistrar.href = "#register";
+  } else {
+    btnLogin.textContent = email;
+    btnRegistrar.textContent = "Logout";
+    btnRegistrar.href = "#logout";
+  }
 }
 
 function mostrarMensaje(msj) {
@@ -197,8 +230,9 @@ export function setUsuarioAutenticado(booleano, idUsuario) {
    */
   sessionStorage.setItem("autenticado", booleano);
   sessionStorage.setItem("id-usuario", idUsuario);
-  sessionStorage.setItem("correo-usuario", inputEmail?.value);
+  sessionStorage.setItem("correo-usuario", inputEmail?.value ?? null);
   console.log("Correo Usuario:", inputEmail?.value);
+  mostrarUsuario();
 }
 export function getUsuarioAutenticado() {
   /**
