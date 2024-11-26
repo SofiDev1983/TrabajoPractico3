@@ -24,7 +24,7 @@ const htmlLogin = `<div class="contenedorLogin">
 
 const htmlRegister = `<div class="contenedorLogin">
     <div class="cajaLogin">
-        <p >Iniciar sesión</p>
+        <p>Crear cuenta</p>
         <form class="formLogin">
             <div class="input-group">
                 <input type="email" class="form-control" id="loginEmail" placeholder="Email" name="loginEmail" autocomplete required>
@@ -37,7 +37,7 @@ const htmlRegister = `<div class="contenedorLogin">
             </div>
             <div class="row">
                 <div class="col-4">
-                <button type="submit"  id="iniciar-sesion" class="btnAmarillo">Login</button>
+                <button type="submit"  id="iniciar-sesion" class="btnAmarillo">Crear Cuenta</button>
                 </div>
             </div>
         </form>
@@ -163,15 +163,37 @@ async function registrarUsuario(e) {
    *    se muestre la pantalla de login.
    * 5- En caso negativo o falso mostrará una alerta indicando que las contraseñas ingresadas no son iguales.
    */
+  console.log("Registrando usuario...");
+
   e.preventDefault();
   const email = inputEmail?.value;
   const password = inputPassword?.value;
   const rePassword = inputRepetirPass?.value;
 
+  // Valida la informacion ingresada por el usuario
   if (password !== rePassword) {
     mostrarMensaje("Las contraseñas no coinciden.");
     return;
   }
+  if (!email) {
+    mostrarMensaje("Debe ingresar un correo valido.");
+    return;
+  }
+
+  await usuariosServices.crear(
+    "",
+    "",
+    email,
+    password,
+    "",
+    "",
+    "",
+    "",
+    "",
+    "customer"
+  );
+
+  await ingresar(e);
 }
 
 async function usuarioExiste() {
