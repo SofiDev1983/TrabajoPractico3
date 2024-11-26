@@ -21,7 +21,7 @@ export function Router() {
     Usuarios();
   } else if (hash === "#/categorias") {
     Categorias();
-  } else if (hash === "#/home") {
+  } else if (hash === "#/home" || hash === "" || hash === "#") {
     Home();
   } else if (hash === "#/productos") {
     Productos();

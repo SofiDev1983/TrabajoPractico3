@@ -101,52 +101,41 @@ function leerParametro() {
 }
 
 async function registrarCompra() {
-  /**1-Esta función es la encargada de procesar el evento click del anchor btnComprar.
-   * 2-Luego deberá recuperar con la función getUsuarioAutenticado presente en el módulo login.js el objeto session
-   * 3-Si la propiedad autenticado del objeto session es falso, el usuario no ha iniciado sesión, y se deberá emitir
-   *   una alerta que comunique al usuario que antes de realizar una compra debe haber iniciado sesión y salir de la
-   * ejecución de la función.
-   * 4-Si la propiedad autenticado es true la ejecución continua.
-   * 5-En este punto se deben almacenar los datos necesario para registrar la venta.
-   * 5-Necesitamos idUsuario, emailUsuario, idProducto, nameProducto, cantidad y fecha.
-   * 6-Los dos primeros los extraemos del objeto session.
-   * 7-El resto de los datos los capturamos desde el objeto document utilizando los id: nameProducto, cantidadProducto.
-   *   El idProducto lo recuperamos desde el atributo data-idproducto y a fecha la obtenemos desde la fecha del sistema con
-   *   el objeto Date() de javascript.
-   * 8-Una vez reunido todos los datos necesarios llamamos a la función ventasServices.crear pasando lo parámetros obtenidos.
-   * 9-Luego de registrar la venta utilizando el objeto location.replace("tienda.html") renderizamos nuevamente la página
-   *   dejando el sitio en el estado inicial.
-   * 10-Finalmente emitimos una alerta con la leyenda "Compra finalizada."
-   *
-   */
+  // 1. Obtiene el usuario logueado
   const auth = getUsuarioAutenticado();
-  if (!auth || !auth.autenticado) {
+
+  // ! Valida que el usuario este logueado
+  if (
+    !auth || // Validación: ¿existe el objeto?
+    auth.autenticado !== "true" || // ¿Está autenticado? (debe ser la cadena "true")
+    !auth.correoUsuario || // ¿El correo existe y no es falso?
+    auth.correoUsuario === "null" // ¿Es igual a la cadena "null"?
+  ) {
     alert("Inicie sesion para comprar");
     return;
   }
+
+  // * Toma los datos del usuario logueado
   const usuario = getDataUsuario();
   const idUsuario = usuario.idUsuario;
   const correo = usuario.correo;
+
+  // 2. Toma la informacion del producto
   const nombreProducto = document.querySelector("#nameProducto").textContent;
   const cantidadProducto = document.querySelector("#cantidadProducto").value;
   const idProducto =
     document.querySelector("[data-idproducto]").dataset.idproducto;
 
+  // ! Valida la cantidad ingresada
   if (!cantidadProducto || isNaN(cantidadProducto) || cantidadProducto <= 0) {
     alert("Por favor, ingrese una cantidad válida.");
     return;
   }
 
+  // * Crea una variable fecha con la hora actual
   const fecha = new Date().toISOString();
-  console.log({
-    idUsuario,
-    correo,
-    idProducto,
-    nombreProducto,
-    cantidadProducto,
-    fecha,
-  });
 
+  // Crea la venta con los datos
   const ventaData = new Venta(
     idUsuario,
     correo,
@@ -157,10 +146,9 @@ async function registrarCompra() {
     false
   );
 
-  console.log(ventaData);
-
+  // La guarda en la API
   try {
-    const resultado = await ventasServices.crear(
+    const response = await ventasServices.crear(
       ventaData.idUsuario,
       ventaData.emailUsuario,
       ventaData.idProducto,
@@ -169,14 +157,12 @@ async function registrarCompra() {
       ventaData.fecha,
       ventaData.despachado
     );
-    if (resultado.status === 200) {
-      alert("Compra finalizada!");
-    }
+    if (response.status === 201) alert("Compra realizada exitosamente!");
+    else throw new Error();
   } catch (error) {
     alert("No se pudo realizar la compra. Intentelo de nuevo mas tarde.");
   } finally {
-    alert("Compra realizada exitosamente!");
-    history.go(-1);
+    history.go(-1); // Te devuelve al listado de productos
   }
 }
 
