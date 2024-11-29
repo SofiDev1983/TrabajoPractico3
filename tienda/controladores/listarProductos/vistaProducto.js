@@ -100,11 +100,11 @@ function leerParametro() {
   return value ? value.trim() : null;
 }
 
-async function registrarCompra() {
-  // 1. Obtiene el usuario logueado
+async function registrarCompra() {// Ventaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa//
+  // 1. Obtiene el usuario logueado, nos devuelve los datos del usu y es lo q guardamos en la const auth
   const auth = getUsuarioAutenticado();
 
-  // ! Valida que el usuario este logueado
+  // ! Valida que el usuario este logueado, mediante la prop autenticado, q este en true q exita y q no sea null, si estas cond no se cumplen se le dice q inicie sesion p comprar
   if (
     !auth || // Validación: ¿existe el objeto?
     auth.autenticado !== "true" || // ¿Está autenticado? (debe ser la cadena "true")
@@ -115,24 +115,24 @@ async function registrarCompra() {
     return;
   }
 
-  // * Toma los datos del usuario logueado
+  // * Toma los datos del usuario logueado, para crear la venta,
   const usuario = getDataUsuario();
   const idUsuario = usuario.idUsuario;
   const correo = usuario.correo;
 
-  // 2. Toma la informacion del producto
+  // 2. Toma la informacion del producto , la cantidad y el id q debe estae en la url.
   const nombreProducto = document.querySelector("#nameProducto").textContent;
   const cantidadProducto = document.querySelector("#cantidadProducto").value;
   const idProducto =
     document.querySelector("[data-idproducto]").dataset.idproducto;
 
-  // ! Valida la cantidad ingresada
+  // ! Valida la cantidad ingresadaq sea 1 num no sea 0ni neg y q este definida, en caso contrario se le muestra el error y sale del  alert
   if (!cantidadProducto || isNaN(cantidadProducto) || cantidadProducto <= 0) {
     alert("Por favor, ingrese una cantidad válida.");
     return;
   }
 
-  // * Crea una variable fecha con la hora actual
+  // * Crea una variable fecha con la hora actual, en formato global y ya tendriamos los datos p ver la venta, y enviamos los datos de la venta al servicio con el id del usuario,id proct,nom
   const fecha = new Date().toISOString();
 
   // Crea la venta con los datos
@@ -157,12 +157,12 @@ async function registrarCompra() {
       ventaData.fecha,
       ventaData.despachado
     );
-    if (response.status === 201) alert("Compra realizada exitosamente!");
+    if (response.status === 201) alert("Compra realizada exitosamente!");//controlamos q la respuesta sea 201
     else throw new Error();
   } catch (error) {
-    alert("No se pudo realizar la compra. Intentelo de nuevo mas tarde.");
+    alert("No se pudo realizar la compra. Intentelo de nuevo mas tarde.");//mediante el alert le notificamos al usuario, q no se pudo registar
   } finally {
-    history.go(-1); // Te devuelve al listado de productos
+    history.go(-1); // una vez q finaliza todo este proceso, volvemos al navegador hacia atras al listado de productos nuevamente.
   }
 }
 

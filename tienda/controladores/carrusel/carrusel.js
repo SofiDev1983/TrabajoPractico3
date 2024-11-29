@@ -1,5 +1,5 @@
 const htmlCarrusel = `
-    <div class="slider-container">
+    <div class="slider-container carrusel">
         <div class="slide active">
             <img src="/img/slider/imagen1.png" alt="Imagen 1" style="width:100%; height:100%; object-fit:cover;">
         </div>

@@ -1,5 +1,7 @@
 import { RouterTienda } from "../tienda/controladores/routerTienda.js";
 import { Tienda } from "../tienda/controladores/tienda.js";
+import { Carrusel } from "../tienda/controladores/carrusel/carrusel.js";
+import { listarProductos } from "../tienda/controladores/listarProductos/listarProductos.js";
 import { Categorias } from "./categorias/categorias.js";
 import { Home } from "./home/home.js";
 import { Productos } from "./productos/productos.js";
@@ -27,6 +29,9 @@ export function Router() {
     Productos();
   } else if (hash === "#/ventas") {
     Ventas();
+  } else if (hash === "" || hash === "#/tienda") {
+    listarProductos();
+    Carrusel();
   }
   console.log(hash);
 }

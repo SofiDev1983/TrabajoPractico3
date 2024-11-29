@@ -8,10 +8,8 @@ import {
   register,
   setUsuarioAutenticado,
 } from "./login/login.js";
-import { Router } from "/controladores/router.js";
 
 export function RouterTienda() {
-  document.getElementById("sitio").classList.add("d-none");
   let session = getUsuarioAutenticado();
   setSession(session);
   let hash = location.hash;
@@ -27,11 +25,9 @@ export function RouterTienda() {
     location.href = "";
   } else if (hash.startsWith("#/vistaProducto")) {
     vistaProducto();
-  } else if (hash === "") {
+  } else if (hash === "" || hash === "#/tienda") {
     listarProductos();
     Carrusel();
-  } else {
-    Router();
   }
   console.log(hash);
 }

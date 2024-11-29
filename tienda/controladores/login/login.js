@@ -50,10 +50,15 @@ export async function login() {
   crearFormulario(false);
 }
 
+
+// !con el tema de registrar usuario funciona igual que con el login, se crea un formulario pero con el registrar en true
 export function register() {
   crearFormulario(true);
 }
 
+//  !se le asigna el html para registrar y en la parte del submit se registra el usuario 
+//  !se re redirige a la funcion registrar usuario se toma el email, passwor y reafirmacion de la contrasena
+// ! se validan que las contrasenas sean iguales, tambien se valida el email
 function crearFormulario(registrar) {
   const carrusel = document.querySelector(".carrusel");
   if (carrusel) carrusel.innerHTML = "";
@@ -124,6 +129,7 @@ async function registrarUsuario(e) {
     return;
   }
 
+  //  !donde se llama al servicio de usuarios y se crea un usuario como customer osea cliente
   await usuariosServices.crear(
     "",
     "",
@@ -137,6 +143,7 @@ async function registrarUsuario(e) {
     "customer"
   );
 
+  //  !despues de eso se llama al ingresar, para loguear al usuario recien creado 
   await ingresar(e);
 }
 
@@ -183,6 +190,7 @@ export function setUsuarioAutenticado(booleano, idUsuario) {
   console.log("Correo Usuario:", inputEmail?.value);
   mostrarUsuario();
 }
+
 export function getUsuarioAutenticado() {
   const autenticado = sessionStorage.getItem("autenticado");
   const idUsuario = sessionStorage.getItem("id-usuario");
