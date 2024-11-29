@@ -11,7 +11,6 @@ import {
 import { Router } from "/controladores/router.js";
 
 export function RouterTienda() {
-  document.getElementById("sitio").classList.add("d-none");
   let session = getUsuarioAutenticado();
   setSession(session);
   let hash = location.hash;
@@ -30,8 +29,6 @@ export function RouterTienda() {
   } else if (hash === "") {
     listarProductos();
     Carrusel();
-  } else {
-    Router();
   }
   console.log(hash);
 }
