@@ -25,7 +25,7 @@ export function RouterTienda() {
     location.href = "";
   } else if (hash.startsWith("#/vistaProducto")) {
     vistaProducto();
-  } else if (hash === "" || hash === "#/tienda") {
+  } else if (hash === "" || hash === "#") {
     listarProductos();
     Carrusel();
   }

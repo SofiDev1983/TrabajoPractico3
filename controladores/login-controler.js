@@ -7,7 +7,7 @@ import { usuariosServices } from "/servicios/usuarios-servicios.js";
 export function setLogin() {
   frmLogin = document.getElementById("frmLogin");
   const btnLogout = document.getElementById("btnLogout");
-  btnLogout.addEventListener("click", logout);
+  if (btnLogout) btnLogout.addEventListener("click", logout);
 
   if (getUsuarioAutenticado()) {
     if (frmLogin) frmLogin.outerHTML = "";
@@ -68,10 +68,12 @@ async function usuarioExiste() {
     sessionStorage.setItem("usuarioActivo", usuarioActivo);
     sessionStorage.setItem("usuarioFoto", usuarioFoto);
     sessionStorage.setItem("usuarioCorreo", inputEmail?.value);
-    console.log(inputEmail?.value);
+
+    // Muestra los datos del usuario
+    mostrarUsuario(usuarioActivo, usuarioFoto);
 
     setUsuarioAutenticado(true);
-    window.location.href = "#/tienda";
+    window.location.href = "#/home";
   }
 }
 
@@ -93,4 +95,17 @@ function getUsuarioAutenticado() {
 function logout() {
   setUsuarioAutenticado(false);
   window.location.replace("index.html");
+}
+
+function mostrarUsuario(nombreCompleto, foto) {
+  // Mostrar el nombre del usuario y la foto
+  const divUsuario = document.getElementById("info-usuario");
+  if (!divUsuario) return;
+
+  const imagenUsuario = document.getElementById("imagen-usuario");
+  const nombreUsuario = document.getElementById("nombre-usuario");
+  console.log(imagenUsuario, nombreUsuario);
+
+  if (imagenUsuario) imagenUsuario.src = foto;
+  if (nombreUsuario) nombreUsuario.textContent = nombreCompleto;
 }
